@@ -1,3 +1,4 @@
+import { useCallback, useMemo, useRef } from "react"
 import useCotizador from "../hooks/useCotizador"
 import { MARCAS, PLANES } from "../constants"
 
@@ -6,9 +7,18 @@ const Resultado = () => {
     const {resultado, datos} = useCotizador()
     const {marca, year, plan} = datos
 
-    const [nombreMarca] = MARCAS.filter(m => m.id === Number(marca))
-    console.log(nombreMarca)
+    const yearRef = useRef(year)
 
+    const [nombreMarca] = useCallback(
+        MARCAS.filter(m => m.id === Number(marca)
+    ),[resultado])  //cuando cambie resultado, se hace el cambio de los datos
+    //console.log(nombreMarca)
+
+    const [nombrePlan] = useCallback(
+        PLANES.filter(p => p.id === Number(plan)
+    ), [resultado])
+    //console.log(nombrePlan)
+    //No puedo usar useCallback en year porque no tengo una funcion. Puedo usar useRef
     if(resultado === 0) return null
 
     return (
@@ -20,6 +30,21 @@ const Resultado = () => {
             <p className="my-2">
                 <span className="font-bold">Marca: </span>
                 {nombreMarca.nombre}
+            </p>
+
+            <p className="my-2">
+                <span className="font-bold">Plan: </span>
+                {nombrePlan.nombre}
+            </p>
+
+            <p className="my-2">
+                <span className="font-bold">Año: </span>
+                {yearRef.current}  {/* current es el valor actual */}
+            </p>
+
+            <p className="my-2 text-2xl">
+                <span className="font-bold">Total Cotización: </span>
+                {resultado}
             </p>
         </div>
     )
