@@ -26,7 +26,7 @@ const Resultado = () => {
     return (
         <div className="bg-gray-100 text-center mt-5 p-5 shadow-2xl">
             <h2 className="text-gray-600 font-black text-3xl">
-                resumen
+                Resumen
             </h2>
 
             <p className="my-2">
