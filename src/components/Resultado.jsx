@@ -9,7 +9,9 @@ const Resultado = () => {
 
     const yearRef = useRef(year)
 
-    const [nombreMarca] = useCallback(
+    //useMemo y useCallback son similiaes, useMemo usa una arrowFuction y es mas rapido
+
+    const [nombreMarca] = useMemo( () =>
         MARCAS.filter(m => m.id === Number(marca)
     ),[resultado])  //cuando cambie resultado, se hace el cambio de los datos
     //console.log(nombreMarca)
